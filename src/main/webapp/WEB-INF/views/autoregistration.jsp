@@ -2,6 +2,7 @@
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <html>
 
@@ -50,7 +51,7 @@
 					<div class="col-md-7">
 						<c:choose>
 							<c:when test="${edit}">
-								<form:input type="text" path="targa" id="targa" class="form-control input-sm" disabled="true"/>
+								<form:input type="text" path="targa" id="targa" class="form-control input-sm" readonly="true"/>
 							</c:when>
 							<c:otherwise>
 								<form:input type="text" path="targa" id="targa" class="form-control input-sm" />
@@ -93,10 +94,10 @@
 				<div class="form-actions floatRight">
 					<c:choose>
 						<c:when test="${edit}">
-							<input type="submit" value="Update" class="btn btn-primary btn-sm"/> or <a href="<c:url value='/list' />">Cancel</a>
+							<input type="submit" value="Update" class="btn btn-primary btn-sm"/> or <a href="<c:url value='/autolist' />">Cancel</a>
 						</c:when>
 						<c:otherwise>
-							<input type="submit" value="Register" class="btn btn-primary btn-sm"/> or <a href="<c:url value='/list' />">Cancel</a>
+							<input type="submit" value="Register" class="btn btn-primary btn-sm"/> or <a href="<c:url value='/autolist' />">Cancel</a>
 						</c:otherwise>
 					</c:choose>
 				</div>

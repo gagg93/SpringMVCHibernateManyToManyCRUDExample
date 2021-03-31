@@ -45,9 +45,16 @@ public class User implements Serializable{
 	@Column(name="DATA_DI_NASCITA", nullable=false)
 	private Date dataDiNascita;
 
+	public List<Prenotazione> getPrenotazioneSet() {
+		return prenotazioneSet;
+	}
+
+	public void setPrenotazioneSet(List<Prenotazione> prenotazioneSet) {
+		this.prenotazioneSet = prenotazioneSet;
+	}
 
 	@Column
-	@OneToMany(mappedBy="user",fetch = FetchType.EAGER,cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy="user",fetch = FetchType.EAGER,cascade = CascadeType.REMOVE, orphanRemoval = true)
 	private List<Prenotazione> prenotazioneSet;
 
 

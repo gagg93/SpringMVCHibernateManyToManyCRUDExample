@@ -1,7 +1,11 @@
 package com.websystique.springmvc.dao;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import com.websystique.springmvc.dto.ResearchForm;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.criterion.Order;
@@ -31,6 +35,7 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		logger.info("Username : {}", username);
 		Criteria crit = createEntityCriteria();
 		crit.add(Restrictions.eq("username", username));
+
 		User user = (User)crit.uniqueResult();
 		/*if(user!=null){
 			Hibernate.initialize(user.getUserProfiles());
@@ -62,6 +67,20 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 		crit.add(Restrictions.eq("id", id));
 		User user = (User)crit.uniqueResult();
 		delete(user);
+	}
+
+	public List<User> research(ResearchForm researchForm) throws ParseException {
+		Criteria crit = createEntityCriteria();
+		if(researchForm.getField().equals("dataDiNascita")){
+			Date date1=new SimpleDateFormat("dd/MM/yyyy").parse(researchForm.getKey());
+			crit.add(Restrictions.eq(researchForm.getField(), date1));
+
+		}else{
+			crit.add(Restrictions.like(researchForm.getField(), "%"+ researchForm.getKey()+"%"));
+		}
+		crit.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		List<User> users = crit.list();
+		return users;
 	}
 
 }

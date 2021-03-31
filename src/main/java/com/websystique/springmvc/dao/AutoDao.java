@@ -1,5 +1,6 @@
 package com.websystique.springmvc.dao;
 
+import com.websystique.springmvc.dto.ResearchForm;
 import com.websystique.springmvc.model.Auto;
 
 import java.util.List;
@@ -17,5 +18,6 @@ public interface AutoDao {
 	
 	List<Auto> findAllAutos();
 
+    List<Auto> research(ResearchForm researchForm);
 }
 

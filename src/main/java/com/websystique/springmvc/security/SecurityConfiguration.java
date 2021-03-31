@@ -5,10 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.authentication.AuthenticationTrustResolverImpl;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -22,6 +24,7 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+
 
 	@Autowired
 	@Qualifier("customUserDetailsService")
@@ -44,11 +47,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 				.antMatchers("/", "/userlist").access("hasRole('ADMIN')")
 				.antMatchers("/newuser/**", "/delete-user-*").access("hasRole('ADMIN')")
-				//.antMatchers("/edit-user-*").access("hasRole('ADMIN')")
+				.antMatchers("/edit-user-*").access("hasRole('ADMIN')")
 				.antMatchers("/autolist").access("hasRole('CUSTOMER') or hasRole('ADMIN')")
 				.antMatchers("/newauto/**", "/delete-auto-*").access("hasRole('ADMIN')")
 				.antMatchers("/edit-auto-*").access("hasRole('ADMIN')")
+				.antMatchers("/edit-profile").access("hasRole('CUSTOMER')")
 				.antMatchers("/prenotazionelist").access("hasRole('CUSTOMER') or hasRole('ADMIN')")
+				.antMatchers("/prenotazioni-user-*").access("hasRole('CUSTOMER') or hasRole('ADMIN')")
 				.antMatchers("/newprenotazione/**", "/delete-prenotazione-*","/edit-prenotazione-*").access("hasRole('CUSTOMER')")
 				.antMatchers("/approve-prenotazione-*", "/disapprove-prenotazione-*").access("hasRole('ADMIN')")
 				.and().formLogin().loginPage("/login").loginProcessingUrl("/login").successHandler(myAuthenticationSuccessHandler())

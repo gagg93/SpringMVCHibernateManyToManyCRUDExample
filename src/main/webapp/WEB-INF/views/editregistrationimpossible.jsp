@@ -7,7 +7,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>Registration Confirmation Page</title>
+	<title>Registration Modification Page</title>
 	<link href="<c:url value='/static/css/bootstrap.css' />" rel="stylesheet"></link>
 	<link href="<c:url value='/static/css/app.css' />" rel="stylesheet"></link>
 </head>
@@ -16,16 +16,11 @@
 		<%@include file="authheader.jsp" %>
 		
 		<div class="alert alert-success lead">
-	    	${success}
+	    	cannot edit this prenotazione
 		</div>
 		
 		<span class="well floatRight">
-			<sec:authorize access="hasRole('ADMIN')">
-				Go to <a href="<c:url value='/${returnpage}list' />">${returnpage} List</a>
-			</sec:authorize>
-			<sec:authorize access="hasRole('CUSTOMER')">
-				Go to <a href="<c:url value='/prenotazioni-user-0' />">your Prenotazioni</a>
-			</sec:authorize>
+				Go to <a href="<c:url value='/prenotazioni-user-0' />">your prenotation</a>
 		</span>
 	</div>
 </body>

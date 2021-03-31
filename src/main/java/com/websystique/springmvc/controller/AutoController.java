@@ -1,6 +1,8 @@
 package com.websystique.springmvc.controller;
 
+import com.websystique.springmvc.dto.ResearchForm;
 import com.websystique.springmvc.model.Auto;
+import com.websystique.springmvc.model.User;
 import com.websystique.springmvc.service.AutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -45,13 +47,27 @@ public class AutoController {
 	 * This method will list all existing users.
 	 */
 	@RequestMapping(value = {"/autolist"}, method = RequestMethod.GET)
-	public String listUsers(ModelMap model) {
+	public String listAutos(ModelMap model) {
 
 		List<Auto> autos = autoService.findAllAutos();
 		model.addAttribute("autos", autos);
 		model.addAttribute("loggedinuser", getPrincipal());
+		model.addAttribute("researchform", new ResearchForm());
 		return "autolist";
 	}
+
+	@RequestMapping(value = {"/autolist"}, method = RequestMethod.POST)
+	public String researchAutos(ResearchForm researchForm,ModelMap model) {
+
+		List<Auto> autos=autoService.research(researchForm);
+		model.addAttribute("autos", autos);
+		model.addAttribute("loggedinuser", getPrincipal());
+		model.addAttribute("researchform", new ResearchForm());
+		return "autolist";
+	}
+
+
+
 
 	/**
 	 * This method will provide the medium to add a new user.
@@ -126,7 +142,8 @@ public class AutoController {
 
 		if (result.hasErrors()) {
 			model.addAttribute("loggedinuser", getPrincipal());
-			return "registration";
+			model.addAttribute("edit", true);
+			return "autoregistration";
 		}
 
 		/*//Uncomment below 'if block' if you WANT TO ALLOW UPDATING SSO_ID in UI which is a unique key to a User.

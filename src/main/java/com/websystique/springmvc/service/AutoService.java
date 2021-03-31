@@ -1,5 +1,6 @@
 package com.websystique.springmvc.service;
 
+import com.websystique.springmvc.dto.ResearchForm;
 import com.websystique.springmvc.model.Auto;
 import com.websystique.springmvc.model.User;
 
@@ -19,7 +20,7 @@ public interface AutoService {
 	void deleteAutoById(int id);
 
 	List<Auto> findAllAutos();
-	
 
 
+    List<Auto> research(ResearchForm researchForm);
 }

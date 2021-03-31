@@ -1,7 +1,9 @@
 package com.websystique.springmvc.service;
 
+import java.text.ParseException;
 import java.util.List;
 
+import com.websystique.springmvc.dto.ResearchForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -63,6 +65,16 @@ public class UserServiceImpl implements UserService{
 		return dao.findAllUsers();
 	}
 
+	public List<User> research(ResearchForm researchForm) throws ParseException {
+		switch(researchForm.getField()){
+			case "Username":researchForm.setField("username");break;
+			case "First name":researchForm.setField("firstName");break;
+			case "Last name":researchForm.setField("lastName");break;
+			case "Data di nascita":	researchForm.setField("dataDiNascita");
+									break;
+		}
 
+		return  dao.research(researchForm);
+	}
 	
 }

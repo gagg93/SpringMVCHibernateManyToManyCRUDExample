@@ -1,5 +1,6 @@
 package com.websystique.springmvc.dao;
 
+import com.websystique.springmvc.dto.ResearchForm;
 import com.websystique.springmvc.model.Auto;
 import com.websystique.springmvc.model.User;
 import org.hibernate.Criteria;
@@ -9,6 +10,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 
@@ -60,6 +64,18 @@ public class AutoDaoImpl extends AbstractDao<Integer, Auto> implements AutoDao {
 		crit.add(Restrictions.eq("id", id));
 		Auto auto = (Auto) crit.uniqueResult();
 		delete(auto);
+	}
+
+	public List<Auto> research(ResearchForm researchForm) {
+		Criteria crit = createEntityCriteria();
+		if(researchForm.getField().equals("annoImmatricolazione")){
+			crit.add(Restrictions.like(researchForm.getField(), Integer.valueOf(researchForm.getKey())));
+		}else{
+			crit.add(Restrictions.like(researchForm.getField(), "%"+ researchForm.getKey()+"%"));
+		}
+		crit.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		List<Auto> autos = crit.list();
+		return autos;
 	}
 
 }

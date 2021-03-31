@@ -1,5 +1,6 @@
 package com.websystique.springmvc.dao;
 
+import com.websystique.springmvc.dto.ResearchForm;
 import com.websystique.springmvc.model.Auto;
 import com.websystique.springmvc.model.Prenotazione;
 import com.websystique.springmvc.model.User;
@@ -10,6 +11,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import javax.jws.soap.SOAPBinding;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 
@@ -75,4 +80,32 @@ public class PrenotazioneDaoImpl extends AbstractDao<Integer, Prenotazione> impl
 		delete(prenotazione);
 	}
 
+	public List<Prenotazione> research(ResearchForm researchForm) throws ParseException {
+		Criteria crit = createEntityCriteria();
+		if(researchForm.getField().equals("dataDiInizio")||researchForm.getField().equals("dataDiFine")){
+			Date date1=new SimpleDateFormat("dd/MM/yyyy").parse(researchForm.getKey());
+			crit.add(Restrictions.eq(researchForm.getField(), date1));
+		}else {
+			if (researchForm.getField().equals("targa")) {
+				Criteria crittarga = crit.createCriteria("auto");
+				crittarga.add(Restrictions.like(researchForm.getField(), "%" + researchForm.getKey() + "%"));
+			} else {
+				Criteria crittarga = crit.createCriteria("user");
+				crittarga.add(Restrictions.like(researchForm.getField(), "%" + researchForm.getKey() + "%"));
+			}
+		}
+
+		crit.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		List<Prenotazione> prenotaziones = crit.list();
+		/*if(user!=null){
+			Hibernate.initialize(user.getUserProfiles());
+		}*/
+		return prenotaziones;
+
+
+	}
 }
+
+
+
+

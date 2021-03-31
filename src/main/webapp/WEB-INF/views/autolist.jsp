@@ -2,6 +2,7 @@
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <html>
 
@@ -18,6 +19,22 @@
 		<div class="panel panel-default">
 			  <!-- Default panel contents -->
 		  	<div class="panel-heading"><span class="lead">List of Autos </span></div>
+			<span class="floatRight">
+					<form:form method="POST" modelAttribute="researchform" class="form-horizontal">
+						<div class="form-inline">
+							<label for="research">Ricerca</label>
+							<form:select class="form-control" id="research" path="field">
+								<option>Targa</option>
+								<option>Modello</option>
+								<option>Casa Costruttrice</option>
+								<option>Anno di immatricolazione</option>
+								<option>Tipologia</option>
+							</form:select>
+							<form:input type="text" id="key" class="form-control input-sm" path="key"/>
+							<input type="submit" value="Cerca" class="btn btn-primary btn-sm"/>
+						</div>
+					</form:form>
+			</span><br>
 			<table class="table table-hover">
 	    		<thead>
 		      		<tr>

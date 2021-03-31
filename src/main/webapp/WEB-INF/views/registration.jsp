@@ -2,6 +2,7 @@
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <html>
 
@@ -50,7 +51,7 @@
 					<div class="col-md-7">
 						<c:choose>
 							<c:when test="${edit}">
-								<form:input type="text" path="username" id="username" class="form-control input-sm" disabled="true"/>
+								<form:input type="text" path="username" id="username" class="form-control input-sm" readonly="true"/>
 							</c:when>
 							<c:otherwise>
 								<form:input type="text" path="username" id="username" class="form-control input-sm" />

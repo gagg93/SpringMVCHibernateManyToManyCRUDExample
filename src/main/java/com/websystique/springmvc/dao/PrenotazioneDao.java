@@ -1,9 +1,11 @@
 package com.websystique.springmvc.dao;
 
+import com.websystique.springmvc.dto.ResearchForm;
 import com.websystique.springmvc.model.Auto;
 import com.websystique.springmvc.model.Prenotazione;
 import com.websystique.springmvc.model.User;
 
+import java.text.ParseException;
 import java.util.List;
 
 
@@ -21,5 +23,6 @@ public interface PrenotazioneDao {
 	
 	List<Prenotazione> findAllPrenotaziones();
 
+    List<Prenotazione> research(ResearchForm researchForm) throws ParseException;
 }
 

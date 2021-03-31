@@ -2,6 +2,7 @@
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <html>
 
@@ -24,7 +25,7 @@
 				<div class="form-group col-md-12">
 					<label class="col-md-3 control-lable" for="username">Username</label>
 					<div class="col-md-7">
-						<form:input type="text" path="username" id="username" class="form-control input-sm"/>
+						<form:input type="text" path="username" id="username" value="${loggedinuser}" readonly="true" class="form-control input-sm"/>
 						<div class="has-error">
 							<form:errors path="username" class="help-inline"/>
 						</div>
@@ -44,6 +45,17 @@
 				</div>
 			</div>
 
+			<div class="row">
+				<div class="form-group col-md-12">
+					<label class="col-md-3 control-lable" for="dataDiInizio">Data di fine</label>
+					<div class="col-md-7">
+						<form:input type="text" path="dataDiInizio" id="dataDiInizio" class="form-control input-sm" readonly="true"/>
+						<div class="has-error">
+							<form:errors path="dataDiInizio" class="help-inline"/>
+						</div>
+					</div>
+				</div>
+			</div>
 
 
 
@@ -66,7 +78,12 @@
 							<input type="submit" value="Update" class="btn btn-primary btn-sm"/> or <a href="<c:url value='/prenotazionelist' />">Cancel</a>
 						</c:when>
 						<c:otherwise>
-							<input type="submit" value="Register" class="btn btn-primary btn-sm"/> or <a href="<c:url value='/prenotazionelist' />">Cancel</a>
+							<sec:authorize access="hasRole('ADMIN')">
+								<input type="submit" value="Register" class="btn btn-primary btn-sm"/> or <a href="<c:url value='/prenotazionelist' />">Cancel</a>
+							</sec:authorize>
+							<sec:authorize access="hasRole('CUSTOMER')">
+								<input type="submit" value="Register" class="btn btn-primary btn-sm"/> or <a href="<c:url value='/prenotazioni-user-0' />">Cancel</a>
+							</sec:authorize>
 						</c:otherwise>
 					</c:choose>
 				</div>

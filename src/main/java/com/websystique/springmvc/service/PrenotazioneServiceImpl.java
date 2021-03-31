@@ -4,6 +4,7 @@ import com.websystique.springmvc.dao.AutoDao;
 import com.websystique.springmvc.dao.PrenotazioneDao;
 import com.websystique.springmvc.dao.UserDao;
 import com.websystique.springmvc.dto.PrenotazioneDto;
+import com.websystique.springmvc.dto.ResearchForm;
 import com.websystique.springmvc.model.Auto;
 import com.websystique.springmvc.model.Prenotazione;
 import com.websystique.springmvc.model.User;
@@ -13,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,9 +31,6 @@ public class PrenotazioneServiceImpl implements PrenotazioneService{
 
 	@Autowired
 	private AutoDao autoDao;
-
-	@Autowired
-    private PasswordEncoder passwordEncoder;
 	
 	public PrenotazioneDto findById(int id) {
 		return new PrenotazioneDto(dao.findById(id));
@@ -96,5 +95,20 @@ public class PrenotazioneServiceImpl implements PrenotazioneService{
 	}
 
 
+	public List<PrenotazioneDto> research(ResearchForm researchForm) throws ParseException {
+		switch(researchForm.getField()){
+			case "Username":researchForm.setField("username");break;
+			case "Targa":researchForm.setField("targa");break;
+			case "Data di inizio":researchForm.setField("dataDiInizio");break;
+			case "Data di fine":researchForm.setField("dataDiFine");break;
+		}
+		List<PrenotazioneDto> result=new ArrayList<>();
+		List<Prenotazione> p=dao.research(researchForm);
+		for (Prenotazione var :
+				p) {
+			result.add(new PrenotazioneDto(var));
+		}
+		return result;
+	}
 	
 }

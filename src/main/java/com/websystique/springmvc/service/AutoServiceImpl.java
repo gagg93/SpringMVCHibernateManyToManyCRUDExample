@@ -2,6 +2,7 @@ package com.websystique.springmvc.service;
 
 import com.websystique.springmvc.dao.AutoDao;
 import com.websystique.springmvc.dao.UserDao;
+import com.websystique.springmvc.dto.ResearchForm;
 import com.websystique.springmvc.model.Auto;
 import com.websystique.springmvc.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +19,6 @@ public class AutoServiceImpl implements AutoService{
 
 	@Autowired
 	private AutoDao dao;
-
-	@Autowired
-    private PasswordEncoder passwordEncoder;
 	
 	public Auto findById(int id) {
 		return dao.findById(id);
@@ -61,6 +59,17 @@ public class AutoServiceImpl implements AutoService{
 		return dao.findAllAutos();
 	}
 
+	@Override
+	public List<Auto> research(ResearchForm researchForm) {
+		switch (researchForm.getField()){
+			case "Anno di immatricolazione":researchForm.setField("annoImmatricolazione");break;
+			case "Casa Costruttrice":researchForm.setField("casaCostruttrice");break;
+			case "Targa":researchForm.setField("targa");break;
+			case "Modello":researchForm.setField("modello");break;
+			case "Tipologia":researchForm.setField("tipologia");break;
+		}
+		return dao.research(researchForm);
+	}
 
-	
+
 }
