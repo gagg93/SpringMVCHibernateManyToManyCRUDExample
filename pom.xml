@@ -4,10 +4,10 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.websystique.springmvc</groupId>
-	<artifactId>SpringMVCHibernateManyToManyCRUDExample</artifactId>
+	<artifactId>SpringMVCHibernate</artifactId>
 	<packaging>war</packaging>
 	<version>1.0.0</version>
-	<name>SpringMVCHibernateWithSpringSecurityExample</name>
+	<name>SpringMVCHibernate</name>
 
   	<properties>
 		<springframework.version>4.3.6.RELEASE</springframework.version>
