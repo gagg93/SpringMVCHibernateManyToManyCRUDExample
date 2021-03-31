@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="SpringMVCHibernateManyToManyCRUDExample" />
+        <module name="SpringMVCHibernate" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="SpringMVCHibernateManyToManyCRUDExample" target="8" />
+      <module name="SpringMVCHibernate" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>
