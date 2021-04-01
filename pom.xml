@@ -4,10 +4,10 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.websystique.springmvc</groupId>
-	<artifactId>SpringMVCHibernate</artifactId>
+	<artifactId>SpringMVCHibernateSecurity</artifactId>
 	<packaging>war</packaging>
 	<version>1.0.0</version>
-	<name>SpringMVCHibernate</name>
+	<name>SpringMVCHibernateSecurity</name>
 
   	<properties>
 		<springframework.version>4.3.6.RELEASE</springframework.version>
